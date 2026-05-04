@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arabischkurs – Kursanmeldung</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Frische, dezente Farbpalette: Salbei · Elfenbein · Warmes Taupe · Terrakotta-Akzent */
+      --cream:       #f7f5f0;
+      --white:       #ffffff;
+      --sand:        #ede9e0;
+      --sage:        #5c7a6b;        /* Hauptfarbe – gedämpftes Salbei-Grün */
+      --sage-light:  #7a9b8a;
+      --sage-dark:   #3d5a4d;
+      --accent:      #b5804a;        /* Warmes Terrakotta-Gold statt kräftigem Gold */
+      --accent-soft: #d4a574;
+      --text:        #2a2620;
+      --text-muted:  #7a7068;
+      --border:      #ddd8ce;
+      --border-soft: #ede9e1;
+      --error:       #b84040;
+      --success:     #4a7a60;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Feines arabisches Gittermuster im Hintergrund */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(92,122,107,0.035) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Header ─── */
+    header {
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      background-color: var(--sage-dark);
+    }
+
+    /* Hintergrundbild */
+    .header-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/verein.png');
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      z-index: 0;
+    }
+
+    /* Halbtransparenter Overlay – Bild sichtbar, Text lesbar */
+    .header-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(10,00,12,0.40) 0%,
+        rgba(25,48,35,0.30) 55%,
+        rgba(25,48,35,0.22) 100%
+      );
+    }
+
+    /* Weiche Wellen-Silhouette unten */
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0; right: 0;
+      height: 48px;
+      background: var(--cream);
+      clip-path: ellipse(58% 100% at 50% 100%);
+      z-index: 3;
+    }
+
+    /* Ornament-Kreise im Header */
+    .header-ornament {
+      position: absolute;
+      opacity: 0.14;
+      border-radius: 50%;
+      border: 1.5px solid var(--accent-soft);
+      z-index: 1;
+    }
+    .header-ornament.a { width:320px; height:320px; top:-110px; right:-70px; }
+    .header-ornament.b { width:190px; height:190px; top:25px;  right:75px; border-width: 5px; }
+    .header-ornament.c { width:110px; height:110px; bottom:10px; left:36px; }
+
+
+
+    .header-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 52px 24px 68px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .arabic-title {
+      font-family: 'Amiri', serif;
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      color: #fff;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .arabic-subtitle {
+      font-family: 'Amiri', serif;
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .divider-gold {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 16px auto;
+    }
+    .divider-gold span {
+      display: block;
+      width: 56px;
+      height: 1px;
+      background: var(--accent-soft);
+      opacity: 0.55;
+    }
+    .divider-gold .diamond {
+      width: 7px; height: 7px;
+      background: var(--accent-soft);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    .header-tagline {
+      color: #fff;
+      font-size: 0.93rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── Main ─── */
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── Progress Bar ─── */
+    .progress-wrap {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+
+    .progress-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      max-width: 140px;
+    }
+
+    .step-circle {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: all 0.3s ease;
+    }
+
+    .step-circle.active {
+      border-color: var(--sage);
+      background: var(--sage);
+      color: #fff;
+    }
+
+    .step-circle.done {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .step-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-align: center;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .step-label.active { color: var(--sage-dark); }
+
+    .progress-line {
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      max-width: 60px;
+      margin-bottom: 20px;
+      transition: background 0.3s ease;
+    }
+
+    .progress-line.done { background: var(--accent); }
+
+    /* ─── Card ─── */
+    .form-card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 40px 48px;
+      box-shadow: 0 4px 28px rgba(61,90,77,0.07), 0 1px 4px rgba(0,0,0,0.04);
+      border: 1px solid rgba(221,216,206,0.6);
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      font-family: 'Amiri', serif;
+      font-size: 1.5rem;
+      color: var(--sage-dark);
+      margin-bottom: 4px;
+    }
+
+    .section-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      font-weight: 300;
+    }
+
+    .ornament-line {
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      width: 52px;
+      margin-bottom: 28px;
+    }
+
+    /* ─── Form Fields ─── */
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .field-grid .full { grid-column: 1 / -1; }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;    /* Verhindert, dass Grid-Items breiter als ihre Spalte werden */
+      overflow: hidden;
+    }
+
+    label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    label .req {
+      color: var(--accent);
+      margin-left: 2px;
+    }
+
+    input, select, textarea {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      background: var(--cream);
+      color: var(--text);
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      outline: none;
+      width: 100%;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--sage);
+      box-shadow: 0 0 0 3px rgba(92,122,107,0.12);
+      background: var(--white);
+    }
+
+    /* Datum-Feld: explizite Höhe damit es gleich groß wie andere Felder ist */
+    input[type="date"] {
+      min-height: 48px;
+      line-height: 1.5;
+      padding-top: 11px;
+      padding-bottom: 11px;
+      width: 100%;
+      max-width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    input.error, select.error, textarea.error {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px rgba(184,64,64,0.08);
+    }
+
+    .field-error {
+      font-size: 0.78rem;
+      color: var(--error);
+      display: none;
+    }
+
+    .field-error.show { display: block; }
+
+    textarea { resize: vertical; min-height: 90px; }
+
+    /* ─── Radio / Checkbox custom ─── */
+    .radio-group, .check-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .radio-item, .check-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .radio-item input[type="radio"],
+    .check-item input[type="checkbox"] {
+      width: 18px; height: 18px;
+      accent-color: var(--sage);
+      cursor: pointer;
+    }
+
+    /* ─── Navigation buttons ─── */
+    .btn-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      letter-spacing: 0.03em;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .btn-outline:hover { border-color: var(--sage); color: var(--sage); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--sage-dark), var(--sage));
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(61,90,77,0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(61,90,77,0.35);
+    }
+
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    /* ─── Step panels ─── */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+
+    /* Verhindert Layout-Sprünge beim async-Laden der Felder */
+    #step1-fields,
+    #step2-fields,
+    #step3-fields {
+      min-height: 140px;
+    }
+
+    /* Scrollbar-Platz reservieren damit die Seite nicht springt */
+    html {
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+    }
+
+    /* ─── Summary ─── */
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .summary-table tr:not(:last-child) td {
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .summary-table td {
+      padding: 10px 0;
+      font-size: 0.9rem;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .summary-table td:first-child {
+      color: var(--text-muted);
+      font-weight: 500;
+      width: 45%;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── Success screen ─── */
+    .success-screen {
+      text-align: center;
+      padding: 40px 20px;
+      display: none;
+    }
+
+    .success-screen.show { display: block; animation: fadeUp 0.5s ease; }
+
+    .success-icon {
+      width: 80px; height: 80px;
+      background: linear-gradient(135deg, var(--sage-dark), var(--sage-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 2rem;
+      color: #fff;
+      box-shadow: 0 8px 32px rgba(61,90,77,0.25);
+    }
+
+    .success-screen h2 {
+      font-family: 'Amiri', serif;
+      font-size: 2rem;
+      color: var(--sage-dark);
+      margin-bottom: 12px;
+    }
+
+    .success-screen p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 400px;
+      margin: 0 auto 8px;
+    }
+
+    .success-id {
+      display: inline-block;
+      margin-top: 20px;
+      background: var(--sand);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 20px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: var(--sage-dark);
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── Toast ─── */
+    #toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: var(--sage-dark);
+      color: #fff;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.3s ease;
+      z-index: 100;
+      max-width: 300px;
+    }
+
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast.error { background: var(--error); }
+
+    /* ─── Loader ─── */
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── Logo in Card-Header ─── */
+    .nav-center-logo {
+      flex-shrink: 0;   /* Logo darf nicht zusammengedrückt werden */
+      margin-left: 12px;
+    }
+    .nav-center-logo img {
+      display: block;
+      width: 80px;
+      height: auto;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 600px) {
+      .form-card {
+        padding: 28px 20px;
+        animation: none;           /* Kein Schweben-Effekt auf Handy */
+        box-shadow: 0 2px 12px rgba(61,90,77,0.08), 0 1px 3px rgba(0,0,0,0.04);
+      }
+      /* Alle Kinder der Card ebenfalls animations-frei – verhindert Re-Trigger beim
+         dynamischen Befüllen von Step 4 (buildSummary) */
+      .form-card * {
+        animation: none !important;
+        transition-duration: 0.1s !important;
+      }
+      .field-grid { grid-template-columns: 1fr; }
+      .field-grid .full { grid-column: 1; }
+      html { overflow-y: auto; }   /* Kein erzwungener Scrollbar-Gutter */
+    }
+
+    /* Touch-Geräte: hover-Transforms deaktivieren (kleben nach dem Tippen) */
+    @media (hover: none) {
+      .btn-primary:hover {
+        transform: none;
+        box-shadow: 0 4px 16px rgba(61,90,77,0.25);
+      }
+      .btn-outline:hover {
+        border-color: var(--border);
+        color: var(--text-muted);
+      }
+    }
+
+    /* Barrierefreiheit: Animation für Nutzer mit reduzierter Bewegung aus */
+    @media (prefers-reduced-motion: reduce) {
+      .form-card { animation: none; }
+      .success-screen.show { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-bg"></div>
+    <div class="header-ornament a"></div>
+    <div class="header-ornament b"></div>
+    <div class="header-ornament c"></div>
+    <div class="header-inner">
+
+      <div class="arabic-subtitle">جمعية مدرسة هانوفر</div>
+      <div class="arabic-title">Arabischkurs – Anmeldung</div>
+      <div class="divider-gold">
+        <span></span><div class="diamond"></div><span></span>
+      </div>
+      <p class="header-tagline">Melden Sie Ihr Kind jetzt für unseren Arabischkurs an</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- Progress -->
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-step">
+        <div class="step-circle active" id="step-circle-1">1</div>
+        <div class="step-label active" id="step-label-1">Eltern</div>
+      </div>
+      <div class="progress-line" id="line-1"></div>
+      <div class="progress-step">
+        <div class="step-circle" id="step-circle-2">2</div>
+        <div class="step-label" id="step-label-2">Kind</div>
+      </div>
+      <div class="progress-line" id="line-2"></div>
+      <div class="progress-step">
+        <div class="step-circle" id="step-circle-3">3</div>
+        <div class="step-label" id="step-label-3">Zusatzfragen</div>
+      </div>
+      <div class="progress-line" id="line-3"></div>
+      <div class="progress-step">
+        <div class="step-circle" id="step-circle-4">4</div>
+        <div class="step-label" id="step-label-4">Bestätigung</div>
+      </div>
+    </div>
+
+    <!-- Kostenblock – separat, außerhalb der Card, nur sichtbar in Step 1 -->
+    <div id="kosten-block" style="margin-bottom:16px; padding:14px 16px; background:var(--sand); border-radius:10px; font-size:0.85rem; color:var(--text-muted); border-left: 3px solid var(--accent); line-height: 1.8;">
+      <span style="color:var(--text); font-size:0.80rem;"><strong>*</strong> Hiermit melde ich mein Kind für den <strong>Arabischkurs</strong> beim Madrassa Hannover e.V. an und beantrage die <strong>Mitgliedschaft</strong> im Verein.</span><br/>
+	  <strong style="color:var(--text);">Kosten:</strong><br/>
+      <span style="color:var(--text); font-size:0.78rem;">▪ Kursgebühr: 25€ / Monat</span><br/>
+      <span style="color:var(--text); font-size:0.78rem;">▪ Passive Mitgliedschaft: 5€ / Monat</span><br/>
+      <span style="color:var(--text); font-size:0.78rem;">▪ Anmeldegebühr inkl. Bücher: 40€ einmalig</span><br/>
+	  <strong style="color:var(--text);">Unterricht:</strong><br/>
+      <span style="color:var(--text); font-size:0.78rem;">▪ Start: 01.09.2026</span><br/>
+      <span style="color:var(--text); font-size:0.78rem;">▪ Zeit: Dienstag & Freitag 17:00 - 19:30 Uhr</span>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="form-card" id="form-card">
+
+
+      <!-- Step 1: Eltern – dynamisch aus Firestore -->
+
+      <div class="step-panel active" id="panel-1">
+
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+  <div class="section-title" id="step1-title">Angaben der Eltern</div>
+  <div class="nav-center-logo">
+  <img src="images/logo.png" alt="" style="width: 80px; height: auto;" onerror="this.style.display='none'"/></div>
+  </div>
+
+        <div class="section-desc">Bitte füllen Sie Ihre Kontaktdaten vollständig aus.</div>
+
+        <div class="ornament-line"></div>
+
+        <div class="field-grid" id="step1-fields">
+          <div style="padding:40px 20px;text-align:center;color:#aaa;grid-column:1/-1;min-height:140px;display:flex;align-items:center;justify-content:center;">Wird geladen…</div>
+        </div>
+        <div class="btn-row">
+          <a href="https://www.madrassa-hannover.com/" class="btn btn-outline" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;">← Zur Vereinswebsite</a>
+          <button class="btn btn-primary" onclick="goStep(2)">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Kind – dynamisch aus Firestore -->
+      <div class="step-panel" id="panel-2">
+	  
+	  
+	  <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div class="section-title" id="step2-title">Angaben zum Kind</div>
+      <div class="nav-center-logo">
+      <img src="images/logo.png" alt="" style="width: 80px; height: auto;" onerror="this.style.display='none'"/></div>
+      </div>
+	  
+	  
+        
+        <div class="section-desc">Informationen über Ihr Kind, das den Arabischkurs besuchen soll.</div>
+        <div class="ornament-line"></div>
+        <div class="field-grid" id="step2-fields"></div>
+        <div class="btn-row">
+          <button class="btn btn-outline" onclick="goStep(1)">← Zurück</button>
+          <button class="btn btn-primary" onclick="goStep(3)">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Kurs – dynamisch aus Firestore -->
+      <div class="step-panel" id="panel-3">
+	  
+	  
+	   <div style="display: flex; justify-content: space-between; align-items: center;">
+       <div class="section-title" id="step3-title">Zusatzfragen</div>
+       <div class="nav-center-logo">
+       <img src="images/logo.png" alt="" style="width: 80px; height: auto;" onerror="this.style.display='none'"/></div>
+       </div>
+	  
+	  
+        <div class="section-desc">Bitte beantworten Sie die folgenden Zusatzfragen.</div>
+        <div class="ornament-line"></div>
+        <div class="field-grid" id="step3-fields"></div>
+        <div class="btn-row">
+          <button class="btn btn-outline" onclick="goStep(2)">← Zurück</button>
+          <button class="btn btn-primary" onclick="goStep(4)">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Übersicht & Bestätigung -->
+      <div class="step-panel" id="panel-4">
+	  
+	  
+	   <div style="display: flex; justify-content: space-between; align-items: center;">
+       <div class="section-title">Zusammenfassung</div>
+       <div class="nav-center-logo">
+       <img src="images/logo.png" alt="" style="width: 80px; height: auto;" onerror="this.style.display='none'"/></div>
+       </div>
+	  
+
+        <div class="section-desc">Bitte prüfen Sie Ihre Angaben und bestätigen Sie die Anmeldung.</div>
+        <div class="ornament-line"></div>
+
+        <table class="summary-table" id="summary-table"></table>
+
+       
+
+
+
+<div style="margin-top:24px; padding:16px; background:var(--sand); border-radius:10px; font-size:0.85rem; color:var(--text-muted); border-left: 3px solid var(--accent); line-height: 1.5;">
+  
+  <strong style="color:var(--text);">Datenschutzhinweis/Vereinsordnung:</strong><br/>
+  Ihre Daten werden ausschließlich für die Kurs- und Mitgliederverwaltung gespeichert und nicht an Dritte weitergegeben.
+  
+    <a href="https://www.madrassa-hannover.com/datenschutz/" 
+     target="_blank" 
+     style="color:var(--sage-dark); text-decoration:underline; font-weight:600; margin-left: 5px;">
+    Datenschutzerklärung  
+  </a>
+  
+  
+  <a href="https://www.madrassa-hannover.com/einverstaendniserklaerung-mitglied/" 
+     target="_blank" 
+     style="color:var(--sage-dark); text-decoration:underline; font-weight:600; margin-left: 5px;">
+    Mitglieds/Beitragsordnung  
+  </a>
+  
+  
+    <a href="https://www.madrassa-hannover.com/einverstaendniserklaerung-schulbeitragsordnung/" 
+     target="_blank" 
+     style="color:var(--sage-dark); text-decoration:underline; font-weight:600; margin-left: 5px;">
+    Schulbeitragsordnung   
+  </a>
+  
+  
+   <a href="https://www.madrassa-hannover.com/satzung/" 
+     target="_blank" 
+     style="color:var(--sage-dark); text-decoration:underline; font-weight:600; margin-left: 5px;">
+    Vereinssatzung
+  </a>
+    	
+</div>
+
+        <div style="margin-top:16px;">
+          <label class="check-item">
+            <input type="checkbox" id="datenschutz" />
+            Ich stimme der Datenschutzerklärung und Vereinsordnung zu <span class="req">*</span>
+          </label>
+          <span class="field-error" id="err-datenschutz">Bitte Datenschutz/Vereinsordnung zustimmen</span>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-outline" onclick="goStep(3)">← Zurück</button>
+          <button class="btn btn-primary" id="submit-btn" onclick="submitForm()">
+            Jetzt anmelden ✓
+          </button>
+        </div>
+		
+      </div>
+
+    </div>
+
+    <!-- Success screen -->
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon">✓</div>
+      <h2>Anmeldung erfolgreich!</h2>
+      <p>Vielen Dank! Ihre Anmeldung wurde gespeichert. Eine Bestätigung wurde an Ihre E-Mail gesendet.</p>
+      <p style="margin-top:8px; font-size:0.82rem; color:#c0392b; font-weight:700;">📧 Bitte prüfen Sie auch Ihren Spam-Ordner.</p>
+      <p style="margin-top:12px; font-size:0.82rem;">Ihre Anmelde-ID:</p>
+      <div class="success-id" id="success-id">–</div>
+      <br/><br/>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="location.reload()">Weitere Anmeldung</button>
+        <a href="https://www.madrassa-hannover.com/" class="btn btn-outline" style="text-decoration:none;display:inline-flex;align-items:center;">🏠 Zur Vereinswebsite</a>
+      </div>
+	  
+    </div>
+
+  </main>
+
+  <div id="toast"></div>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, doc, getDoc, serverTimestamp }
+      from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // ── Firebase Config ──
+const firebaseConfig = {
+  apiKey: "AIzaSyBdt1qjLliYqslLktBQ6hcTlir0XUnFUdw",
+  authDomain: "madrassa-form.firebaseapp.com",
+  projectId: "madrassa-form",
+  storageBucket: "madrassa-form.firebasestorage.app",
+  messagingSenderId: "940720845026",
+  appId: "1:940720845026:web:15a5226db1ee903cf42ebb",
+};
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
+
+    // ─── State ───
+    let currentStep = 1;
+    let _felder = [];   // Formularfelder aus settings/formFelder
+
+    // ── EmailJS Keys – ausschließlich aus Firestore laden (keine Keys im Code) ──
+    window._ejsServiceId  = '';
+    window._ejsPublicKey  = '';
+    window._ejsArabicTpl  = '';
+
+    let _ejsReady = false;
+
+    // Felder sofort beim Laden holen
+    loadFormFelder();
+    try {
+      const ejsSnap = await getDoc(doc(db, 'settings', 'emailjs'));
+      if (ejsSnap.exists()) {
+        const ejs = ejsSnap.data();
+        window._ejsServiceId = ejs.serviceId  || '';
+        window._ejsPublicKey = ejs.publicKey  || '';
+        window._ejsArabicTpl = ejs.arabicTpl  || '';
+        if (window._ejsPublicKey) {
+          await loadEmailJS(window._ejsPublicKey);
+          _ejsReady = true;
+        }
+      }
+    } catch (e) { console.warn('EmailJS konnte nicht geladen werden.', e); }
+
+    // ── EmailJS Script laden ──
+    function loadEmailJS(publicKey) {
+      return new Promise(resolve => {
+        if (window.emailjs) { try { window.emailjs.init(publicKey); } catch(e){} resolve(); return; }
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+        s.onload = () => { try { window.emailjs.init(publicKey); } catch(e){} resolve(); };
+        s.onerror = () => resolve();
+        document.body.appendChild(s);
+      });
+    }
+
+    // ── Bestätigungs-E-Mail senden ──
+    async function sendConfirmationEmail(data, anmeldeId) {
+      if (!_ejsReady || !window.emailjs) return;
+      const kursLabels = {
+        anfaenger: 'Anfängerkurs (5–7 Jahre)', grundstufe: 'Grundstufe (8–10 Jahre)',
+        mittelstufe: 'Mittelstufe (11–13 Jahre)', oberstufe: 'Oberstufe (14–17 Jahre)',
+        koran: 'Koran-Rezitation'
+      };
+      const tagLabels = { samstag: 'Samstag', sonntag: 'Sonntag', beide: 'Samstag & Sonntag' };
+      // Hilfsfunktion: Wert aus Objekt per direktem Key ODER per feldId-Suche in _felder
+      function _feldWert(obj, key, gruppe) {
+        if (!obj) return '';
+        if (obj[key]) return obj[key];
+        const f = _felder.find(x => x.gruppe === gruppe && x.feldId === key);
+        return (f && obj[f.id]) || '';
+      }
+      const kursTyp  = _feldWert(data.kurs, 'typ', 'kurs');
+      const kursTag  = _feldWert(data.kurs, 'tag', 'kurs');
+      const kursUhr  = _feldWert(data.kurs, 'uhrzeit', 'kurs');
+      const kennVal  = _feldWert(data.kind, 'kenntnisse', 'kind') || '';
+      // Nur einfache Text-Variablen – das Layout liegt im EmailJS-Template
+      const params = {
+        to_email:      data.eltern.email,
+        to_name:       data.eltern.vorname + ' ' + data.eltern.nachname,
+        eltern_name:   data.eltern.vorname + ' ' + data.eltern.nachname,
+        eltern_email:  data.eltern.email,
+        eltern_tel:    data.eltern.telefon || '–',
+        kind_name:     data.kind.vorname + ' ' + data.kind.nachname,
+        kind_geb:      data.kind.geburtsdatum || '–',
+        kind_geschl:   data.kind.geschlecht || '–',
+        kenntnisse:    kennVal || '–',
+        kurs:          kursLabels[kursTyp] || kursTyp || '–',
+        wochentag:     tagLabels[kursTag] || kursTag || '–',
+        uhrzeit:       kursUhr ? kursUhr + ' Uhr' : '–',
+        anmelde_id:    anmeldeId,
+        anmeldedatum:  new Date().toLocaleDateString('de-DE'),
+      };
+      try {
+        await window.emailjs.send(window._ejsServiceId, window._ejsArabicTpl, params);
+        showToast('📧 Bestätigungs-E-Mail wurde gesendet!');
+      } catch (e) {
+        console.warn('E-Mail konnte nicht gesendet werden:', e);
+      }
+    }
+
+    // ── Formfelder dynamisch laden & rendern ──
+    function renderField(f) {
+      const fid = 'ff_' + f.id;
+      let inputHtml = '';
+      const ph = f.platzhalter || '';
+      if (f.typ === 'text' || f.typ === 'email' || f.typ === 'tel' || f.typ === 'date') {
+        inputHtml = `<input type="${f.typ}" id="${fid}" placeholder="${ph}" />`;
+      } else if (f.typ === 'iban') {
+        inputHtml = `<input type="text" id="${fid}" placeholder="${ph||'DE00000000000000000000'}" maxlength="27" style="text-transform:uppercase;letter-spacing:1px" oninput="this.value=this.value.toUpperCase()" />`;
+      } else if (f.typ === 'textarea') {
+        inputHtml = `<textarea id="${fid}" rows="3" placeholder="${ph}"></textarea>`;
+      } else if (f.typ === 'select') {
+        const opts = (f.optionen||[]).map(o=>`<option value="${o}">${o}</option>`).join('');
+        inputHtml = `<select id="${fid}"><option value="">– bitte wählen –</option>${opts}</select>`;
+      } else if (f.typ === 'radio') {
+        const opts = (f.optionen||[]);
+        const radios = opts.map((o,i)=>
+          `<label class="radio-item"><input type="radio" name="radio_${f.id}" value="${o}"${i===opts.length-1&&f.defaultLast?' checked':''} /> ${o}</label>`
+        ).join('');
+        inputHtml = `<div class="radio-group" style="margin-top:8px;">${radios}</div>`;
+      }
+      const wrap = document.createElement('div');
+      wrap.className = 'field' + (f.breit ? ' full' : '');
+      wrap.dataset.fid = f.id;
+      wrap.innerHTML = `<label>${f.label}${f.pflicht?' <span class="req">*</span>':''}</label>
+        ${inputHtml}
+        ${f.pflicht?`<span class="field-error" id="err_${f.id}">${f.fehlermeldung||'Bitte ausfüllen'}</span>`:''}`;
+      return wrap;
+    }
+
+    // ── Formularfelder aus settings/formFelder laden ──
+    async function loadFormFelder() {
+      try {
+        const snap = await getDoc(doc(db, 'settings', 'formFelder'));
+        _felder = snap.exists() ? (snap.data().felder || []) : [];
+        _felder = _felder
+          .filter(f=>f.aktiv!==false)
+          .sort((a,b)=>{ if(a.schritt!==b.schritt) return (a.schritt||1)-(b.schritt||1); return (a.reihenfolge??999)-(b.reihenfolge??999); });
+        [1,2,3].forEach(s=>{
+          const c = document.getElementById(`step${s}-fields`);
+          if (!c) return;
+          c.innerHTML = '';
+          _felder.filter(f=>f.schritt===s).forEach(f=>c.appendChild(renderField(f)));
+        });
+      } catch(e) { console.warn('Formfelder konnten nicht geladen werden:', e); }
+    }
+
+    // ─── Step navigation ───
+    window.goStep = function(target) {
+      if (target > currentStep && !validateStep(currentStep)) return;
+
+      // Update circles
+      for (let i = 1; i <= 4; i++) {
+        const circle = document.getElementById(`step-circle-${i}`);
+        const label  = document.getElementById(`step-label-${i}`);
+        circle.className = 'step-circle' + (i < target ? ' done' : i === target ? ' active' : '');
+        circle.textContent = i < target ? '✓' : i;
+        label.className  = 'step-label' + (i === target ? ' active' : '');
+      }
+      for (let i = 1; i <= 3; i++) {
+        document.getElementById(`line-${i}`).className = 'progress-line' + (i < target ? ' done' : '');
+      }
+
+      document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(`panel-${target}`).classList.add('active');
+
+      const kostenBlock = document.getElementById('kosten-block');
+      if (kostenBlock) kostenBlock.style.display = target === 1 ? 'block' : 'none';
+
+      if (target === 4) buildSummary();
+
+      currentStep = target;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // ─── IBAN-Erkennung: typ === 'iban' (Admin) ODER feldId/Label enthält "iban" (Fallback) ───
+    function isIbanFeld(f) {
+      return f.typ === 'iban' ||
+             (f.feldId||'').toLowerCase().includes('iban') ||
+             (f.label||'').toLowerCase().includes('iban');
+    }
+
+    // ─── Validation ───
+    function validateStep(step) {
+      let ok = true;
+
+      _felder.filter(f => f.schritt === step).forEach(f => {
+        const fid = 'ff_' + f.id;
+        let value = '';
+        if (f.typ === 'radio') {
+          const c = document.querySelector(`[name="radio_${f.id}"]:checked`);
+          value = c ? c.value : '';
+        } else {
+          const el = document.getElementById(fid);
+          value = el ? el.value.trim() : '';
+        }
+
+        const el = f.typ === 'radio'
+          ? document.querySelector(`[name="radio_${f.id}"]`)
+          : document.getElementById(fid);
+
+        let err = document.getElementById('err_' + f.id);
+        if (!err && el) {
+          err = document.createElement('span');
+          err.className = 'field-error';
+          err.id = 'err_' + f.id;
+          el.parentNode.appendChild(err);
+        }
+
+        const iban    = isIbanFeld(f);
+        const cleaned = value.replace(/\s+/g, '').toUpperCase();
+        const ibanOk  = /^DE\d{20}$/.test(cleaned);
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        const telOk   = /^[+\d][\d\s\-]{4,}$/.test(value);
+
+
+        let invalid = false;
+        let msg = f.fehlermeldung || 'Bitte ausfüllen';
+
+        if (f.pflicht && !value) {
+          invalid = true;
+          msg = iban ? 'Bitte IBAN eingeben (DE + 20 Ziffern)' : (f.fehlermeldung || 'Bitte ausfüllen');
+        } else if (f.typ === 'email' && value && !emailOk) {
+          invalid = true;
+          msg = 'Bitte gültige E-Mail-Adresse eingeben (z. B. name@beispiel.de)';
+        } else if (f.typ === 'tel' && value && !telOk) {
+          invalid = true;
+          msg = 'Bitte gültige Telefonnummer eingeben (mind. 6 Ziffern)';
+        } else if (iban && value && !ibanOk) {
+          invalid = true;
+          msg = 'Ungültige IBAN – muss mit DE beginnen, gefolgt von 20 Ziffern';
+        }
+
+        if (err) err.textContent = msg;
+
+        if (invalid) {
+          if (el)  el.classList.add('error');
+          if (err) err.classList.add('show');
+          ok = false;
+        } else {
+          if (el)  el.classList.remove('error');
+          if (err) err.classList.remove('show');
+        }
+      });
+
+      return ok;
+    }
+
+    function val(id) {
+      const el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    }
+
+    // ─── Summary (vollständig dynamisch) ───
+    function buildSummary() {
+      const rows = [];
+      _felder.forEach(f => {
+        let value = '';
+        if (f.typ==='radio') { const c=document.querySelector(`[name="radio_${f.id}"]:checked`); value=c?c.value:''; }
+        else { const el=document.getElementById('ff_'+f.id); value=el?el.value.trim():''; }
+        if (value) rows.push([f.label, value]);
+      });
+      const table = document.getElementById('summary-table');
+      table.innerHTML = rows.map(([k,v])=>`<tr><td>${k}</td><td><strong>${v}</strong></td></tr>`).join('');
+    }
+
+    // ─── Submit ───
+    window.submitForm = async function() {
+      const ds = document.getElementById('datenschutz');
+      const err = document.getElementById('err-datenschutz');
+      if (!ds.checked) { err.classList.add('show'); return; }
+      err.classList.remove('show');
+
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span>Wird gespeichert…';
+
+      // Daten aus allen dynamischen Feldern sammeln
+      const eltern={}, kind={}, kurs={}, zusatzFragen={};
+      _felder.forEach(f=>{
+        let value='';
+        if (f.typ==='radio'){ const c=document.querySelector(`[name="radio_${f.id}"]:checked`); value=c?c.value:''; }
+        else { const el=document.getElementById('ff_'+f.id); value=el?el.value.trim():''; }
+        const gr=f.gruppe||'extra', fId=f.feldId||f.id;
+        if (gr==='eltern') eltern[fId]=value;
+        else if (gr==='kind') kind[fId]=value;
+        else if (gr==='kurs') kurs[fId]=value;
+        else zusatzFragen[f.id]=value;
+      });
+
+      // ── E-Mail-Format vorab prüfen ──
+      const emailWert = eltern.email || '';
+      const emailGueltig = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailWert);
+      if (!emailGueltig) {
+        showToast('Bitte eine gültige E-Mail-Adresse eingeben.', true);
+        btn.disabled = false;
+        btn.innerHTML = 'Jetzt anmelden \u2713';
+        return;
+      }
+
+      const data = { eltern, kind, kurs, zusatzFragen, status:'neu', anmeldedatum:serverTimestamp() };
+
+      // ── 1. In Firestore speichern ──
+      let anmeldeId;
+      try {
+        const docRef = await addDoc(collection(db, 'anmeldungen'), data);
+        anmeldeId = docRef.id.slice(0,8).toUpperCase();
+      } catch (e) {
+        console.error('Firestore-Fehler:', e);
+        showToast('Fehler beim Speichern. Bitte erneut versuchen.', true);
+        btn.disabled = false;
+        btn.innerHTML = 'Jetzt anmelden \u2713';
+        return;
+      }
+
+      // ── 2. Erfolg anzeigen ──
+      document.getElementById('form-card').style.display = 'none';
+      document.getElementById('progress-wrap').style.display = 'none';
+      document.getElementById('success-screen').classList.add('show');
+      document.getElementById('success-id').textContent = anmeldeId;
+
+      // ── 3. Bestätigungs-E-Mail senden ──
+      await sendConfirmationEmail(data, anmeldeId);
+    };
+
+    // ─── Toast ───
+    function showToast(msg, error = false) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'show' + (error ? ' error' : '');
+      setTimeout(() => t.className = '', 3500);
+    }
+  </script>
+</body>
+</html>
